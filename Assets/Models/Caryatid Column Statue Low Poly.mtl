@@ -1,0 +1,11 @@
+newmtl Caryatid_Column_Statue_Low_Poly
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Caryatid Column Statue Low Poly_COLOR.jpg
+bump Caryatid Column Statue Low Poly_BUMP.jpg -bm 0.08
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks -mm 0 0.05786 Caryatid Column Statue Low Poly_SPEC.jpg
+Ns 18.00
