@@ -309,20 +309,26 @@ public class XhurchTeleport : MonoBehaviour
                 onDeactivateObjectTransform.gameObject.SetActive(false);
             }
         }
-        
+
         // reset time if we are done animating
-        if (time <= 0.0f) {
+        if (time <= 0.0f)
+        {
             isAnimating = false;
             time = 0.0f;
         }
 
         // xhurch animation
-        if (isAnimating) {
+        if (isAnimating)
+        {
             time = time - 0.005f;
 
-            var renderer = currentObjectToShow.GetComponent<Renderer>();
-            if (renderer) {
-                renderer.material.SetFloat("_EffectDryWet", time);
+            foreach (Transform child in currentObjectToShow.transform)
+            {
+                var renderer = child.GetComponent<Renderer>();
+                if (renderer)
+                {
+                    renderer.material.SetFloat("_EffectDryWet", time);
+                }
             }
         }
     }
@@ -516,51 +522,51 @@ public class XhurchTeleport : MonoBehaviour
             return;
         }
 
-// todo: fix
-//         if (debugFloor)
-//         {
-//             //Debug floor
-//             TeleportArea teleportArea = pointedAtTeleportMarker as TeleportArea;
-//             if (teleportArea != null)
-//             {
-//                 if (floorFixupMaximumTraceDistance > 0.0f)
-//                 {
-//                     floorDebugSphere.gameObject.SetActive(true);
-//                     floorDebugLine.gameObject.SetActive(true);
+        // todo: fix
+        //         if (debugFloor)
+        //         {
+        //             //Debug floor
+        //             TeleportArea teleportArea = pointedAtTeleportMarker as TeleportArea;
+        //             if (teleportArea != null)
+        //             {
+        //                 if (floorFixupMaximumTraceDistance > 0.0f)
+        //                 {
+        //                     floorDebugSphere.gameObject.SetActive(true);
+        //                     floorDebugLine.gameObject.SetActive(true);
 
-//                     RaycastHit raycastHit;
-//                     Vector3 traceDir = Vector3.down;
-//                     traceDir.x = 0.01f;
-//                     if (Physics.Raycast(pointedAtPosition + 0.05f * traceDir, traceDir, out raycastHit, floorFixupMaximumTraceDistance, floorFixupTraceLayerMask))
-//                     {
-//                         floorDebugSphere.transform.position = raycastHit.point;
-//                         floorDebugSphere.material.color = Color.green;
-// #if (UNITY_5_4)
-// 							floorDebugLine.SetColors( Color.green, Color.green );
-// #else
-//                         floorDebugLine.startColor = Color.green;
-//                         floorDebugLine.endColor = Color.green;
-// #endif
-//                         floorDebugLine.SetPosition(0, pointedAtPosition);
-//                         floorDebugLine.SetPosition(1, raycastHit.point);
-//                     }
-//                     else
-//                     {
-//                         Vector3 rayEnd = pointedAtPosition + (traceDir * floorFixupMaximumTraceDistance);
-//                         floorDebugSphere.transform.position = rayEnd;
-//                         floorDebugSphere.material.color = Color.red;
-// #if (UNITY_5_4)
-// 							floorDebugLine.SetColors( Color.red, Color.red );
-// #else
-//                         floorDebugLine.startColor = Color.red;
-//                         floorDebugLine.endColor = Color.red;
-// #endif
-//                         floorDebugLine.SetPosition(0, pointedAtPosition);
-//                         floorDebugLine.SetPosition(1, rayEnd);
-//                     }
-//                 }
-//             }
-//         }
+        //                     RaycastHit raycastHit;
+        //                     Vector3 traceDir = Vector3.down;
+        //                     traceDir.x = 0.01f;
+        //                     if (Physics.Raycast(pointedAtPosition + 0.05f * traceDir, traceDir, out raycastHit, floorFixupMaximumTraceDistance, floorFixupTraceLayerMask))
+        //                     {
+        //                         floorDebugSphere.transform.position = raycastHit.point;
+        //                         floorDebugSphere.material.color = Color.green;
+        // #if (UNITY_5_4)
+        // 							floorDebugLine.SetColors( Color.green, Color.green );
+        // #else
+        //                         floorDebugLine.startColor = Color.green;
+        //                         floorDebugLine.endColor = Color.green;
+        // #endif
+        //                         floorDebugLine.SetPosition(0, pointedAtPosition);
+        //                         floorDebugLine.SetPosition(1, raycastHit.point);
+        //                     }
+        //                     else
+        //                     {
+        //                         Vector3 rayEnd = pointedAtPosition + (traceDir * floorFixupMaximumTraceDistance);
+        //                         floorDebugSphere.transform.position = rayEnd;
+        //                         floorDebugSphere.material.color = Color.red;
+        // #if (UNITY_5_4)
+        // 							floorDebugLine.SetColors( Color.red, Color.red );
+        // #else
+        //                         floorDebugLine.startColor = Color.red;
+        //                         floorDebugLine.endColor = Color.red;
+        // #endif
+        //                         floorDebugLine.SetPosition(0, pointedAtPosition);
+        //                         floorDebugLine.SetPosition(1, rayEnd);
+        //                     }
+        //                 }
+        //             }
+        //         }
     }
 
 
@@ -872,7 +878,8 @@ public class XhurchTeleport : MonoBehaviour
         Invoke("TeleportPlayer", currentFadeTime);
     }
 
-    private void FadeEffect(GameObject objectToShow) {
+    private void FadeEffect(GameObject objectToShow)
+    {
         currentObjectToShow = objectToShow;
         objectToShow.SetActive(true);
         isAnimating = true;
