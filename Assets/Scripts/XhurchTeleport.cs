@@ -114,6 +114,8 @@ public class XhurchTeleport : MonoBehaviour
     public float time = 1.0f;
     public bool isAnimating = false;
 
+    public float animationSpeed = 0.0037f;
+
     public GameObject currentObjectToShow = null;
 
     SteamVR_Events.Action chaperoneInfoInitializedAction;
@@ -320,16 +322,23 @@ public class XhurchTeleport : MonoBehaviour
         // xhurch animation
         if (isAnimating)
         {
-            time = time - 0.005f;
+            time = time - animationSpeed;
 
-            foreach (Transform child in currentObjectToShow.transform)
+            ApplyEffectToChildren(currentObjectToShow.transform);
+        }
+    }
+
+    private void ApplyEffectToChildren(Transform transform)
+    {
+        foreach (Transform child in transform)
+        {
+            var renderer = child.GetComponent<Renderer>();
+            if (renderer)
             {
-                var renderer = child.GetComponent<Renderer>();
-                if (renderer)
-                {
-                    renderer.material.SetFloat("_EffectDryWet", time);
-                }
+                 renderer.material.SetFloat("_EffectDryWet", time);
             }
+
+            ApplyEffectToChildren(child);
         }
     }
 
