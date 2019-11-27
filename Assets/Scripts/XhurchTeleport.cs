@@ -309,6 +309,12 @@ public class XhurchTeleport : MonoBehaviour
                 onDeactivateObjectTransform.gameObject.SetActive(false);
             }
         }
+        
+        // reset time if we are done animating
+        if (time <= 0.0f) {
+            isAnimating = false;
+            time = 0.0f;
+        }
 
         // xhurch animation
         if (isAnimating) {
@@ -869,6 +875,8 @@ public class XhurchTeleport : MonoBehaviour
     private void FadeEffect(GameObject objectToShow) {
         currentObjectToShow = objectToShow;
         objectToShow.SetActive(true);
+        isAnimating = true;
+        time = 1.0f;
     }
 
 
