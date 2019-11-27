@@ -87,7 +87,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EffectDryWet: 0.08
+    - _EffectDryWet: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.246
@@ -109,6 +109,7 @@ Material:
     m_Colors:
     - Color_B6F15865: {r: 0, g: 16, b: 0.0219574, a: 1}
     - Color_E27FD312: {r: 0, g: 0, b: 0, a: 0}
+    - _Albedo: {r: 0.20754716, g: 0.20754716, b: 0.20754716, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
