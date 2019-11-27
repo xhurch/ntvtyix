@@ -29,6 +29,7 @@ public class XhurchTeleportPoint : TeleportMarkerBase
     public string switchToScene;
 
 	public GameObject objectToShow;
+    public GameObject realObject;
     public Color titleVisibleColor;
     public Color titleHighlightedColor;
     public Color titleLockedColor;

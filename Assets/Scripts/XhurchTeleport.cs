@@ -118,6 +118,8 @@ public class XhurchTeleport : MonoBehaviour
 
     public GameObject currentObjectToShow = null;
 
+    public GameObject currentRealObject = null;
+
     SteamVR_Events.Action chaperoneInfoInitializedAction;
 
     // Events
@@ -317,12 +319,16 @@ public class XhurchTeleport : MonoBehaviour
         {
             isAnimating = false;
             time = 0.0f;
+            currentRealObject.SetActive(true);
+            currentObjectToShow.SetActive(false);
         }
 
         // xhurch animation
         if (isAnimating)
         {
             time = time - animationSpeed;
+
+            // StartCoroutine(DissolveIn(currentObjectToShow.transform));
 
             ApplyEffectToChildren(currentObjectToShow.transform);
         }
@@ -332,15 +338,29 @@ public class XhurchTeleport : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
+            // cache the shader for this child
+
             var renderer = child.GetComponent<Renderer>();
             if (renderer)
             {
                  renderer.material.SetFloat("_EffectDryWet", time);
+                //  renderer.material.SetColor("BaseColor", new Color())
             }
 
             ApplyEffectToChildren(child);
         }
     }
+
+    // IEnumerator DissolveIn(Transform transform)
+    // {
+    //     yield return new WaitForSeconds(0);
+    //     ApplyEffectToChildren(transform);
+    //     yield return new WaitForSeconds(0.6f);
+    //     currentRealObject.SetActive(true);
+        
+
+
+    // }
 
 
     //-------------------------------------------------
@@ -887,9 +907,14 @@ public class XhurchTeleport : MonoBehaviour
         Invoke("TeleportPlayer", currentFadeTime);
     }
 
-    private void FadeEffect(GameObject objectToShow)
+    private void FadeEffect(GameObject objectToShow, GameObject realObject)
     {
         currentObjectToShow = objectToShow;
+
+        currentRealObject = realObject;
+
+        // save current shader
+        realObject.SetActive(false);
         objectToShow.SetActive(true);
         isAnimating = true;
         time = 1.0f;
@@ -915,7 +940,7 @@ public class XhurchTeleport : MonoBehaviour
             //Teleport to a new scene
             if (teleportPoint.teleportType == XhurchTeleportPoint.TeleportPointType.SwitchToNewScene)
             {
-                FadeEffect(teleportPoint.objectToShow);
+                FadeEffect(teleportPoint.objectToShow, teleportPoint.realObject);
                 // teleportPoint.TeleportToScene();
                 return;
             }
