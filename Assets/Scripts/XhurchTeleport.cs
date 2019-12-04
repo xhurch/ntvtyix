@@ -318,7 +318,7 @@ public class XhurchTeleport : MonoBehaviour
         if (time <= 0.0f)
         {
             isAnimating = false;
-            time = 0.0f;
+            time = 0.1f;
             currentRealObject.SetActive(true);
             currentObjectToShow.SetActive(false);
         }

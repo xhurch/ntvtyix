@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dissolve2 (Time)
-  m_Shader: {fileID: -6465566751694194690, guid: 8b82f047616121d458541e3d0bcaffab,
+  m_Shader: {fileID: -6465566751694194690, guid: c9ab565a8a3ae2049af2285a8d12eef1,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -57,6 +57,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
+    - _EffectDryWet: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -74,6 +75,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_B6F15865: {r: 0, g: 16, b: 0.0219574, a: 1}
+    - _Albedo: {r: 0.20754716, g: 0.20754716, b: 0.20754716, a: 0}
     - _BaseColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
