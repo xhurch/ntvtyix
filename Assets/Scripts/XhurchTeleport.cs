@@ -908,6 +908,13 @@ public class XhurchTeleport : MonoBehaviour
 
     private void FadeEffect(GameObject objectToShow, GameObject realObject)
     {
+        if (currentRealContainer == realObject) {
+            // trying to teleport to the same scene they are already on
+            // TODO: play some sort of sound to let people know that nothing will happen when they try to teleport
+            // to the same scene they are already on? or add a graphical indicator
+            return;
+        }
+
         // if it exists, hide the current "scene" object before showing the new one
         if (currentTransitionalContainer) {
             previousTransitionalContainer = currentTransitionalContainer;
@@ -918,7 +925,6 @@ public class XhurchTeleport : MonoBehaviour
             previousRealContainer = currentRealContainer;
             previousRealContainer.SetActive(false);
         }
-    
 
         currentTransitionalContainer = objectToShow;
         currentRealContainer = realObject;
