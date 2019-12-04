@@ -116,9 +116,17 @@ public class XhurchTeleport : MonoBehaviour
 
     public float animationSpeed = 0.0037f;
 
-    public GameObject currentObjectToShow = null;
+    // object that we are currently using to transition in
+    public GameObject currentTransitionalContainer = null;
 
-    public GameObject currentRealObject = null;
+    // object that we will show after transitioning the current object in
+    public GameObject currentRealContainer = null;
+
+    // object that we will use to fade the previous object out
+    public GameObject previousTransitionalContainer = null;
+
+    // previous object that was shown
+    public GameObject previousRealContainer = null;
 
     SteamVR_Events.Action chaperoneInfoInitializedAction;
 
@@ -319,29 +327,38 @@ public class XhurchTeleport : MonoBehaviour
         {
             isAnimating = false;
             time = 0.1f;
-            currentRealObject.SetActive(true);
-            currentObjectToShow.SetActive(false);
+            currentRealContainer.SetActive(true);
+            currentTransitionalContainer.SetActive(false);
+
+            if (previousTransitionalContainer) {
+                previousTransitionalContainer.SetActive(false);
+            }
         }
 
         // xhurch animation
         if (isAnimating)
         {
             time = time - animationSpeed;
-            ApplyEffectToChildren(currentObjectToShow.transform);
+            ApplyEffectToChildren(currentTransitionalContainer.transform);
+
+            if (previousTransitionalContainer) {
+                ApplyEffectToChildren(previousTransitionalContainer.transform, true);
+            }
         }
     }
 
-    private void ApplyEffectToChildren(Transform transform)
+    private void ApplyEffectToChildren(Transform transform, bool flip = false)
     {
         foreach (Transform child in transform)
         {
             var renderer = child.GetComponent<Renderer>();
             if (renderer)
             {
-                 renderer.material.SetFloat("_EffectDryWet", time);
+                var dryWetValue = flip ? 1 - time : time;
+                renderer.material.SetFloat("_EffectDryWet", dryWetValue);
             }
 
-            ApplyEffectToChildren(child);
+            ApplyEffectToChildren(child, flip);
         }
     }
 
@@ -892,20 +909,22 @@ public class XhurchTeleport : MonoBehaviour
     private void FadeEffect(GameObject objectToShow, GameObject realObject)
     {
         // if it exists, hide the current "scene" object before showing the new one
-        if (currentObjectToShow) {
-            currentObjectToShow.SetActive(false);
+        if (currentTransitionalContainer) {
+            previousTransitionalContainer = currentTransitionalContainer;
+            previousTransitionalContainer.SetActive(true);
         }
 
-        if (currentRealObject) {
-            currentRealObject.SetActive(false);
+        if (currentRealContainer) {
+            previousRealContainer = currentRealContainer;
+            previousRealContainer.SetActive(false);
         }
     
 
-        currentObjectToShow = objectToShow;
-        currentRealObject = realObject;
+        currentTransitionalContainer = objectToShow;
+        currentRealContainer = realObject;
 
-        realObject.SetActive(false);
-        objectToShow.SetActive(true);
+        currentRealContainer.SetActive(false);
+        currentTransitionalContainer.SetActive(true);
         isAnimating = true;
         time = 1.0f;
     }
