@@ -111,10 +111,10 @@ public class XhurchTeleport : MonoBehaviour
     private bool movedFeetFarEnough = false;
 
     // Xhurch animation
-    public float time = 1.0f;
-    public bool isAnimating = false;
+    public float nativityTransitionTime = 1.0f;
+    public bool nativityIsTransitioning = false;
 
-    public float animationSpeed = 0.0037f;
+    public float nativityAnimationSpeed = 0.0037f;
 
     // object that we are currently using to transition in
     public GameObject currentTransitionalContainer = null;
@@ -323,10 +323,10 @@ public class XhurchTeleport : MonoBehaviour
         }
 
         // reset time if we are done animating
-        if (time <= 0.1f)
+        if (nativityTransitionTime <= 0.1f)
         {
-            isAnimating = false;
-            time = 0.1f;
+            nativityIsTransitioning = false;
+            nativityTransitionTime = 0.1f;
             currentRealContainer.SetActive(true);
             currentTransitionalContainer.SetActive(false);
 
@@ -336,9 +336,9 @@ public class XhurchTeleport : MonoBehaviour
         }
 
         // xhurch animation
-        if (isAnimating)
+        if (nativityIsTransitioning)
         {
-            time = time - animationSpeed;
+            nativityTransitionTime = nativityTransitionTime - nativityAnimationSpeed;
             ApplyEffectToChildren(currentTransitionalContainer.transform);
 
             if (previousTransitionalContainer) {
@@ -354,7 +354,7 @@ public class XhurchTeleport : MonoBehaviour
             var renderer = child.GetComponent<Renderer>();
             if (renderer)
             {
-                var dryWetValue = flip ? 1 - time : time;
+                var dryWetValue = flip ? 1 - nativityTransitionTime : nativityTransitionTime;
                 renderer.material.SetFloat("_EffectDryWet", dryWetValue);
             }
 
@@ -931,8 +931,8 @@ public class XhurchTeleport : MonoBehaviour
 
         currentRealContainer.SetActive(false);
         currentTransitionalContainer.SetActive(true);
-        isAnimating = true;
-        time = 1.0f;
+        nativityIsTransitioning = true;
+        nativityTransitionTime = 1.0f;
     }
 
 
