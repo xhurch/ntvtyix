@@ -891,11 +891,19 @@ public class XhurchTeleport : MonoBehaviour
 
     private void FadeEffect(GameObject objectToShow, GameObject realObject)
     {
-        currentObjectToShow = objectToShow;
+        // if it exists, hide the current "scene" object before showing the new one
+        if (currentObjectToShow) {
+            currentObjectToShow.SetActive(false);
+        }
 
+        if (currentRealObject) {
+            currentRealObject.SetActive(false);
+        }
+    
+
+        currentObjectToShow = objectToShow;
         currentRealObject = realObject;
 
-        // save current shader
         realObject.SetActive(false);
         objectToShow.SetActive(true);
         isAnimating = true;
