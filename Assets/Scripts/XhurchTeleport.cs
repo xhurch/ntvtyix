@@ -315,7 +315,7 @@ public class XhurchTeleport : MonoBehaviour
         }
 
         // reset time if we are done animating
-        if (time <= 0.0f)
+        if (time <= 0.1f)
         {
             isAnimating = false;
             time = 0.1f;
@@ -327,9 +327,6 @@ public class XhurchTeleport : MonoBehaviour
         if (isAnimating)
         {
             time = time - animationSpeed;
-
-            // StartCoroutine(DissolveIn(currentObjectToShow.transform));
-
             ApplyEffectToChildren(currentObjectToShow.transform);
         }
     }
@@ -338,30 +335,15 @@ public class XhurchTeleport : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            // cache the shader for this child
-
             var renderer = child.GetComponent<Renderer>();
             if (renderer)
             {
                  renderer.material.SetFloat("_EffectDryWet", time);
-                //  renderer.material.SetColor("BaseColor", new Color())
             }
 
             ApplyEffectToChildren(child);
         }
     }
-
-    // IEnumerator DissolveIn(Transform transform)
-    // {
-    //     yield return new WaitForSeconds(0);
-    //     ApplyEffectToChildren(transform);
-    //     yield return new WaitForSeconds(0.6f);
-    //     currentRealObject.SetActive(true);
-        
-
-
-    // }
-
 
     //-------------------------------------------------
     private void UpdatePointer()

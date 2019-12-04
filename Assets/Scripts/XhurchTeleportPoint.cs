@@ -36,9 +36,6 @@ public class XhurchTeleportPoint : TeleportMarkerBase
     public bool playerSpawnPoint = false;
 
     //Private data
-    // public float time = 1.0f;
-    // public bool isAnimating = false;
-
     private bool gotReleventComponents = false;
     private MeshRenderer markerMesh;
     private MeshRenderer switchSceneIcon;
@@ -92,7 +89,6 @@ public class XhurchTeleportPoint : TeleportMarkerBase
     void Start()
     {
         player = Player.instance;
-        // var renderer = objectToShow.GetComponent<Renderer>();
     }
 
 
@@ -106,35 +102,7 @@ public class XhurchTeleportPoint : TeleportMarkerBase
             lookAtPosition.z = player.hmdTransform.position.z;
 
             lookAtJointTransform.LookAt(lookAtPosition);
-
-        //    if (time <= 0.0f) {
-        //         isAnimating = false;
-        //         time = 0.0f;
-        //  }
-
-            // if (isAnimating) {
-                // Debug.Log("animating");
-                // time = time - 0.005f;
-            
-                // foreach (Transform child in objectToShow.transform) {
-                //     var renderer = child.GetComponent<Renderer>();
-
-                //     if (renderer) {
-                //         renderer.material.SetFloat("_EffectDryWet", time);
-                //     }
-                // }
-
-                // foreach (Transform child in objectToShow.transform) {
-                    // var renderer = objectToShow.GetComponent<Renderer>();
-
-                    // if (GetComponent<Renderer>()) {
-                        // GetComponent<Renderer>().material.SetFloat("_EffectDryWet", time);
-                    // }
-                // }
-            // }
         }
-
-
     }
 
 
@@ -256,11 +224,7 @@ public class XhurchTeleportPoint : TeleportMarkerBase
     //-------------------------------------------------
     public void TeleportToScene()
     {
-		// if (objectToShow != null) {
-        //     objectToShow.SetActive(true);
-        //     isAnimating = true;
-        //     // time = 1.0f;
-		// }
+		// this logic is handled in XhurchTeleport.cs
     }
 
 
