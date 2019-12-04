@@ -111,7 +111,9 @@ public class XhurchTeleport : MonoBehaviour
     private bool movedFeetFarEnough = false;
 
     // Xhurch animation
-    public float nativityTransitionTime = 1.0f;
+    [Header("Xhurch")]
+    public float nativityTransitionTime = 0.0f;
+    public float nativityTransitionThreshold = 0.7f;
     public bool nativityIsTransitioning = false;
 
     public float nativityAnimationSpeed = 0.0037f;
@@ -323,31 +325,33 @@ public class XhurchTeleport : MonoBehaviour
         }
 
         // reset time if we are done animating
-        if (nativityTransitionTime <= 0.1f)
+        if (nativityTransitionTime >= nativityTransitionThreshold)
         {
             nativityIsTransitioning = false;
-            nativityTransitionTime = 0.1f;
+         
             currentRealContainer.SetActive(true);
             currentTransitionalContainer.SetActive(false);
 
             if (previousTransitionalContainer) {
                 previousTransitionalContainer.SetActive(false);
             }
+
+            nativityTransitionTime = 1.0f;
         }
 
         // xhurch animation
         if (nativityIsTransitioning)
         {
-            nativityTransitionTime = nativityTransitionTime - nativityAnimationSpeed;
-            ApplyEffectToChildren(currentTransitionalContainer.transform);
+            nativityTransitionTime += nativityAnimationSpeed;
+            ApplyEffectToChildren(currentTransitionalContainer.transform, true);
 
             if (previousTransitionalContainer) {
-                ApplyEffectToChildren(previousTransitionalContainer.transform, true);
+                ApplyEffectToChildren(previousTransitionalContainer.transform, false);
             }
         }
     }
 
-    private void ApplyEffectToChildren(Transform transform, bool flip = false)
+    private void ApplyEffectToChildren(Transform transform, bool flip = true)
     {
         foreach (Transform child in transform)
         {
@@ -932,7 +936,7 @@ public class XhurchTeleport : MonoBehaviour
         currentRealContainer.SetActive(false);
         currentTransitionalContainer.SetActive(true);
         nativityIsTransitioning = true;
-        nativityTransitionTime = 1.0f;
+        nativityTransitionTime = 0.0f;
     }
 
 
